@@ -4,11 +4,37 @@ STOP_WORDS = [
     'will', 'with'
 ]
 
+# Function to clean up an 
+def clean_function():
+            for char in line.lower():
+                if char.isalpha():
+                    filteredwords.append(char)
+                elif char.isspace():
+                    word = "".join(filteredwords)
+                    filteredwords = []
+                    
+
+
 
 def print_word_freq(file):
-    """Read in `file` and print out the frequency of words in that file."""
-    pass
+    wordfreq = {}
+    with open(file) as infile:
+        for line in infile:
+            wordlist = []
+            for char in line.lower():
+                if char.isalpha():
+                    wordlist.append(char)
+                elif char.isspace():
+                    word = "".join(wordlist)
+                    wordlist = []
+                    if word not in STOP_WORDS:
+                        if word in wordfreq:
+                            wordfreq[word] += 1
+                        else: wordfreq[word] = 1
 
+    width = max([len(k) for k in wordfreq])
+    for k in wordfreq:
+        print(f"{k} | {wordfreq[k]} {'=)' * wordfreq[k]}")
 
 if __name__ == "__main__":
     import argparse
